@@ -1,0 +1,13 @@
+.weather {
+  min-width: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px auto; }
+  .weather .forecast {
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; }
+
+/*# sourceMappingURL=styles.module.css.map */

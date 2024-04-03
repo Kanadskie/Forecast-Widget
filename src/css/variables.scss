@@ -1,0 +1,46 @@
+$base-dark: #000;
+
+$base-light: #999;
+
+$base-super-light: #e9e9e9;
+
+$base-burgundie: #790707;
+
+$base-sand: #d7a709;
+
+// $base-colored: #42c6ff;
+
+// $base-colored: #ff64d4;
+
+// $base-colored: #ffe142;
+
+$base-colored: #c9cba3;
+$first-shadow: #abad8b;
+$second-shadow: #abad8b;
+
+// $base-colored: #ffe1a8;
+// $first-shadow: #d9bf8f;
+// $second-shadow: #d9bf8f;
+
+// $base-colored: #e26d5c;
+// $first-shadow: #c05d4e;
+// $second-shadow: #ff7d6a;
+
+// $base-colored: #723d46;
+// $first-shadow: #61343c;
+// $second-shadow: #834651;
+
+
+// $base-colored: #fff;
+
+// $blue-shadows: 0px 20px 100px #38a8d9,
+//                -20px -20px 100px #4ce4ff;
+
+// $pink-shadows:  20px 20px 100px #d955b4,
+//                 -20px -20px 100px #ff73f4;
+
+// $yellow-shadows:  20px 20px 100px #d9bf38,
+//                 -20px -20px 100px #ffff4c;
+                
+$base-shadows:  50px 50px 100px $first-shadow,
+                -50px -50px 100px $second-shadow;

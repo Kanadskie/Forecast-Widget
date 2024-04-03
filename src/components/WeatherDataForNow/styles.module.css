@@ -1,0 +1,65 @@
+.weather_block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 305px; }
+  .weather_block_temp {
+    font-size: 72px;
+    font-weight: 500; }
+  .weather_block_desc {
+    font-size: 12px;
+    font-weight: 500;
+    margin-bottom: 15px; }
+  .weather_block_date {
+    width: 170px;
+    display: flex;
+    flex-direction: column;
+    background: #000;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    padding: 7px 5px; }
+    .weather_block_date_now {
+      font-size: 12px;
+      font-weight: 500;
+      text-align: center;
+      color: #c9cba3;
+      margin-bottom: 5px; }
+    .weather_block_date_sun {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap; }
+      .weather_block_date_sun_type {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        font-size: 12px;
+        color: #c9cba3; }
+        .weather_block_date_sun_type:nth-child(1) {
+          margin-right: 12px; }
+        .weather_block_date_sun_type_icon {
+          width: 20px;
+          height: 20px;
+          margin-right: 6px; }
+  .weather_block_icon {
+    display: block;
+    width: 86px;
+    height: 86px;
+    margin: 19px 0 5px 0; }
+  .weather_block_indicators {
+    width: 220px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap; }
+    .weather_block_indicators_type {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      font-size: 10px; }
+      .weather_block_indicators_type_icon {
+        width: 16px;
+        height: 16px;
+        margin-right: 6px; }
+
+/*# sourceMappingURL=styles.module.css.map */

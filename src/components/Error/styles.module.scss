@@ -1,0 +1,21 @@
+@import '../../css/variables.scss';
+
+.error {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &_icon {
+        width: 32px;
+        height: 32px;
+    }
+    
+    &_msg {
+        width: 175px;
+        text-align: center;
+        font-size: 10px;
+        color: $base-burgundie;
+        margin: 0 8px;
+    }
+
+}

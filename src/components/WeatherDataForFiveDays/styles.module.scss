@@ -1,0 +1,68 @@
+@import '../../css/variables.scss';
+
+.weather_block {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 11px;
+    
+    &:nth-child(1) {
+        margin-top: 19px;
+    }
+
+    &_item {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        width: 216px;
+        height: 36px;
+        padding: 5px;
+        cursor: pointer;
+
+        &:hover {
+            border-radius: 10px;
+            background: linear-gradient(0deg, rgba(201,203,163,0) 30%, rgba(153,153,153,0.28895308123249297) 90%);
+        }
+
+        &_date {
+            width: 45px;
+            font-size: 10px;
+            text-align: center;
+        }
+
+        &_temp {
+            font-size: 18px;
+            font-weight: 500;
+        }
+    
+        &_desc {
+            width: 65px;
+            font-size: 10px;
+            text-align: center;
+        }
+    
+        &_icon {
+            display: block;
+            width: 36px;
+            height: 36px;
+            margin: 5px 0;
+        }
+    }
+
+}
+
+.hr {
+
+    display: block;
+    background: linear-gradient(60deg, rgba(201,203,163,1) 0%, rgba(153,153,153,0.35898109243697474) 70%);
+    opacity: .7;
+    width: 200px;
+    height: 1px;
+    outline: 0;
+    border: none;
+    margin: 1px 0;
+
+    &:nth-of-type(5) {
+        display: none;
+    }
+}
