@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/Forecast-Widget/static/css/main.73838610.css",
+    "main.css": "/Forecast-Widget/static/css/main.7dd060e9.css",
     "main.js": "/Forecast-Widget/static/js/main.33f17ab9.js",
     "static/js/787.49132870.chunk.js": "/Forecast-Widget/static/js/787.49132870.chunk.js",
     "static/media/mist.svg": "/Forecast-Widget/static/media/mist.8767804b98e7f60e736f6800b50a1512.svg",
@@ -26,12 +26,12 @@
     "static/media/wind.svg": "/Forecast-Widget/static/media/wind.647c8a7dd1c497698dd737a5ed5a566d.svg",
     "static/media/search.svg": "/Forecast-Widget/static/media/search.883b6892cdab7dfd9be43caa3a5ed746.svg",
     "static/media/n_clear_sky.svg": "/Forecast-Widget/static/media/n_clear_sky.586120b6800d97892e7e6a8f1c1f6423.svg",
-    "main.73838610.css.map": "/Forecast-Widget/static/css/main.73838610.css.map",
+    "main.7dd060e9.css.map": "/Forecast-Widget/static/css/main.7dd060e9.css.map",
     "main.33f17ab9.js.map": "/Forecast-Widget/static/js/main.33f17ab9.js.map",
     "787.49132870.chunk.js.map": "/Forecast-Widget/static/js/787.49132870.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.73838610.css",
+    "static/css/main.7dd060e9.css",
     "static/js/main.33f17ab9.js"
   ]
 }
