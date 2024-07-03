@@ -1,0 +1,10 @@
+@import '../../css/variables.scss';
+
+.wrapper {
+    background: $base-colored;
+    min-width: 294px;
+    max-width: 588px;
+    margin: 20px 16px;
+    border-radius: 25px;
+    box-shadow: $base-shadows;
+}

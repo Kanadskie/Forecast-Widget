@@ -1,0 +1,23 @@
+@import '../../css/variables.scss';
+
+.geo_block {
+    // max-width: 230px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px auto;
+
+    &_icon {
+        width: 12px;
+        height: 12px;
+        margin-right: 10px;
+    }
+
+    &_location {
+        white-space: pre-wrap;
+        display: inline;
+        font-size: 14px;
+        font-weight: 700;
+        text-align: center;
+    }
+}

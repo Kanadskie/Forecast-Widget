@@ -1,0 +1,17 @@
+.geo_block {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px auto; }
+  .geo_block_icon {
+    width: 12px;
+    height: 12px;
+    margin-right: 10px; }
+  .geo_block_location {
+    white-space: pre-wrap;
+    display: inline;
+    font-size: 14px;
+    font-weight: 700;
+    text-align: center; }
+
+/*# sourceMappingURL=styles.module.css.map */

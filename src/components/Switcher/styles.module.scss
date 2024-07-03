@@ -1,0 +1,49 @@
+@import '../../css/variables.scss';
+
+.switcher {
+    display: flex;
+    justify-content: center;
+
+    &_block {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        &_btns {
+        border: 1px solid $base-dark;
+        border-radius: 3px;
+        
+            &_item {
+                align-items: center;
+                font-size: 12px;
+                color: $base-dark;
+                text-align: center;
+                font-weight: 500;
+                text-transform: uppercase;
+                cursor: pointer;
+                background: transparent;
+
+                &__one {
+                width: 54px;
+                padding: 5px;
+                border: none;
+                outline: 0;
+                }
+            
+                &__five {
+                width: 54px;
+                padding: 5px;
+                border: none;
+                outline: 0;
+                }
+
+                &__active {
+                transition: .3s ease-in;
+                background: $base-dark;
+                color: $base-colored;
+                }
+            }
+        }
+    }
+}
+

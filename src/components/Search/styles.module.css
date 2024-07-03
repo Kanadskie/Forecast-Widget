@@ -1,0 +1,73 @@
+.search {
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+  .search_block {
+    display: flex;
+    align-items: center;
+    margin: 20px 12px 20px 0; }
+    .search_block_input {
+      appearance: none;
+      width: 90px;
+      height: 30px;
+      font-size: 11px;
+      text-transform: uppercase;
+      background: transparent;
+      border: 1px solid #000;
+      outline: 0 none;
+      border-radius: 3px 0 0 3px;
+      padding: 5px 2px 5px 5px;
+      -webkit-appearance: none; }
+      .search_block_input::placeholder {
+        color: #000; }
+      .search_block_input::-webkit-input-placeholder {
+        color: #000; }
+      .search_block_input::-webkit-search-cancel-button {
+        -webkit-appearance: none;
+        height: 15px;
+        width: 15px;
+        content: url(../../icons/cross.svg); }
+      .search_block_input:-webkit-autofill, .search_block_input:-webkit-autofill:focus, .search_block_input:-webkit-autofill:active, .search_block_input:-webkit-autofill:hover {
+        transition: background-color 0s 600000s, color 0s 600000s !important; }
+      .search_block_input:-webkit-autofill::first-line {
+        font-size: 11px; }
+  .search .btn {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 11px;
+    text-transform: uppercase;
+    height: 30px;
+    padding: 7px;
+    outline: 0 none;
+    background: transparent;
+    transition: 1.5s;
+    cursor: pointer; }
+    .search .btn:hover {
+      transition: .5s;
+      background: #000;
+      color: #c9cba3; }
+    .search .btn:disabled {
+      transition: 1.5s;
+      background: #999; }
+    .search .btn_icon {
+      width: 14px;
+      height: 14px;
+      stroke-width: 2;
+      cursor: pointer;
+      stroke: #c9cba3; }
+    .search .btn_search {
+      border-top: 1px solid #000;
+      border-bottom: 1px solid #000;
+      border-right: 1px solid #000;
+      border-left: none;
+      border-radius: 0 3px 3px 0;
+      background: #000; }
+    .search .btn_location {
+      font-size: 11px;
+      color: #000;
+      border: 1px solid #000;
+      border-radius: 3px;
+      font-weight: 400; }
+
+/*# sourceMappingURL=styles.module.css.map */
