@@ -1,19 +1,11 @@
 import style from './styles.module.css'
-
-import switcher_style from '../../components/Switcher/styles.module.css'
-
+import style_switcher from '../../components/Switcher/styles.module.css'
 import { useState, useEffect } from 'react'
-
 import { Search } from '../Search'
-
 import { Error } from '../Error'
-
 import { Switcher } from '../Switcher'
-
 import { Position } from '../Position'
-
 import { WeatherDataForNow } from '../WeatherDataForNow'
-
 import { WeatherDataForFiveDays } from '../WeatherDataForFiveDays'
 
 
@@ -23,58 +15,60 @@ const key = process.env.REACT_APP_WEATHER_API_KEY
 export const Data = () => {
 
     let [currentCoords, setCurrentCoords] = useState({latitude: 52.374, longitude: 4.889})
-
     let [currentData, setCurrentData] = useState(null)
-
     let [currentForecast, setCurrentForecast] = useState(null)
-
+    let [filtredForecast, setFiltredForecast] = useState(null)
     let [currentCity, setCurrentCity] = useState('')
-
     let [currentCityData, setCurrentCityData] = useState(null)
-
     let [currentError, setError] = useState(null)
-
     let [typeOfSearch, setTypeOfSearch] = useState('')
-
     let [showForecastForNow, setShowForecastForNow] = useState(true)
-
     let [showForecastForFiveDays, setShowForecastForFiveDays] = useState(false)
-
     let [showError, setShowError] = useState(false)
-
     let [btnDisabled, setBtnDisabled] = useState(true)
+    let [nowBtnActive, setNowBtnActive] = useState(true)
+    let [fiveBtnActive, setFiveBtnActive] = useState(false)
+
 
     useEffect(() => {
 
-        try {
+        let getUrl = (timeStampsNumber) => {
 
-            fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${currentCoords.latitude}&lon=${currentCoords.longitude}&appid=${key}`)
-            .then(res => res.json())
-            .then(data => setCurrentData(data))
+            let url = `https://api.openweathermap.org/data/2.5/forecast?lat=${currentCoords.latitude}&lon=${currentCoords.longitude}&appid=${key}&cnt=${timeStampsNumber}`
 
-            fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${currentCoords.latitude}&lon=${currentCoords.longitude}&appid=${key}`)
-            .then(res => res.json())
-            .then(data => setCurrentForecast(data))
+            return url
 
-        } catch (err) {
-
-            setShowError(true)
-
-            setError(`Ooops..! Something went wrong. Possibly due to network failure. Please try again later...`)
-            
         }
+
+        fetchData(getUrl(1), setCurrentData)
+
+        fetchData(getUrl(40), setCurrentForecast)
 
     }, [currentCoords])
 
+
     useEffect(() => {
+
+        fetchData(`http://api.openweathermap.org/geo/1.0/direct?q=${currentCity},&appid=${key}`, setCurrentCityData)
+
+        GetTimeStamps(currentForecast, setFiltredForecast, [7, 15, 23, 31, 39])
+
+    }, [currentCity, currentForecast])
+
+
+    async function fetchData(url, storage) {
 
         try {
 
-            fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${currentCity},&appid=${key}`)
-            .then(res => res.json())
-            .then(data => setCurrentCityData(data))
+            const response = await fetch(url)
 
-        } catch (err) {
+            const data = await response.json()
+
+            return storage(data)
+
+        } catch(e) {
+
+            console.error(e)
 
             setShowError(true)
 
@@ -82,8 +76,17 @@ export const Data = () => {
 
         }
 
-    }, [currentCity])
+    }
 
+    const GetTimeStamps = (storage, filtredStorage, stampsNumbers) => {
+
+        if (storage !== null) {
+
+            filtredStorage(storage.list.filter((_, i) => stampsNumbers.includes(i)))
+                
+        }
+
+    }
 
     const GetGeo = () => {
 
@@ -134,36 +137,28 @@ export const Data = () => {
         }
     }
         
-    const GetWeatherForNow = () => {
+    const HandleNowClick = () => {
 
         setShowForecastForNow(true)
 
         setShowForecastForFiveDays(false)
 
-        let btnNow = document.querySelector('[class*="switcher_block_btns_item__one"]')
+        setNowBtnActive(true)
 
-        let btnFive = document.querySelector('[class*="switcher_block_btns_item__five"]')
-
-        btnNow.classList.add(`${switcher_style.switcher_block_btns_item__active}`)
-
-        btnFive.classList.remove(`${switcher_style.switcher_block_btns_item__active}`)
+        setFiveBtnActive(false)
         
     }
 
-    const GetWeatherForFiveDays = () => {
+    const HandleFiveDaysClick = () => {
 
         setShowForecastForNow(false)
 
         setShowForecastForFiveDays(true)
 
-        let btnNow = document.querySelector('[class*="switcher_block_btns_item__one"]')
-
-        let btnFive = document.querySelector('[class*="switcher_block_btns_item__five"]')
-
-        btnNow.classList.remove(`${switcher_style.switcher_block_btns_item__active}`)
-
-        btnFive.classList.add(`${switcher_style.switcher_block_btns_item__active}`)
+        setNowBtnActive(false)
         
+        setFiveBtnActive(true)
+
     }
 
     const AllowToSend = (e) => {
@@ -221,15 +216,17 @@ export const Data = () => {
                 {currentData && <Position
 
                     iconName = {typeOfSearch}
-                    cityName = {('name' in currentData) && (currentData.name !== '') ? currentData.name : 'n/d'}
-                    country = {('sys' in currentData) && ('country' in currentData.sys) && (currentData.sys.country !== '') ? currentData.sys.country : 'n/d'}
+                    cityName = {('city' in currentData) && (currentData.city.name !== '') ? currentData.city.name : 'n/d'}
+                    country = {('city' in currentData) && ('country' in currentData.city) && (currentData.city.country !== '') ? currentData.city.country : 'n/d'}
                     
                 />}
 
                 {currentData && <Switcher 
                 
-                    forecastNow = {GetWeatherForNow}
-                    forecastFiveDays = {GetWeatherForFiveDays}
+                    forecastNow = {HandleNowClick}
+                    forecastFiveDays = {HandleFiveDaysClick}
+                    btn_now = {nowBtnActive ? `${style_switcher.switcher_block_btns__item} ${style_switcher.active}` : `${style_switcher.switcher_block_btns__item}`}
+                    btn_five = {fiveBtnActive ? `${style_switcher.switcher_block_btns__item} ${style_switcher.active}` : `${style_switcher.switcher_block_btns__item}`}
 
                 />}
 
@@ -237,15 +234,15 @@ export const Data = () => {
 
                 {currentData && showForecastForNow && <WeatherDataForNow
 
-                    iconId = {('weather' in currentData) && ('icon' in currentData.weather[0]) && (currentData.weather[0].icon !== '') ? currentData.weather[0].icon : 'no_image'}
-                    actual_temp = {('main' in currentData) && ('temp' in currentData.main) && (currentData.main.temp !== '')  ? (ConvertTemp(currentData.main.temp)) : 'n'}
-                    weather_desc = {('weather' in currentData) && ('description' in currentData.weather[0]) && (currentData.weather[0].description !== '')  ? currentData.weather[0].description : 'n/d'}
-                    date = {('dt' in currentData) && (currentData.dt !== '') ? (ConvertDate(currentData.dt)) : 'n/d'}
-                    wind = {('wind' in currentData) && ('speed' in currentData.wind) && (currentData.wind.speed !== '') ? (Math.round(currentData.wind.speed)) : 'n/d'}
-                    humidity = {('main' in currentData) && ('humidity' in currentData.main) && (currentData.main.humidity !== '') ? currentData.main.humidity : 'n/d'}
-                    pressure = {('main' in currentData) && ('pressure' in currentData.main) && (currentData.main.pressure !== '') ? (Math.round((currentData.main.pressure)/1.33322)) : 'n/d'}
-                    sunrise = {('sys' in currentData) && ('sunrise' in currentData.sys) && (currentData.sys.sunrise !== '' || (currentData.timezone !== '')) ? (ConvertSunTime(currentData.sys.sunrise, currentData.timezone)) : 'n/d'}
-                    sunset = {('sys' in currentData) && ('sunset' in currentData.sys) && (currentData.sys.sunset !== '' || (currentData.timezone !== '')) ? (ConvertSunTime(currentData.sys.sunset, currentData.timezone)) : 'n/d'}
+                    iconId = {('list' in currentData) && ('icon' in currentData.list[0].weather[0]) && (currentData.list[0].weather[0].icon !== '') ? currentData.list[0].weather[0].icon : 'no_image'}
+                    actual_temp = {('list' in currentData) && ('temp' in currentData.list[0].main) && (currentData.list[0].main !== '') ? (ConvertTemp(currentData.list[0].main.temp)) : 'n'}
+                    weather_desc = {('list' in currentData) && ('description' in currentData.list[0].weather[0]) && (currentData.list[0].weather[0].description !== '')  ? currentData.list[0].weather[0].description : 'n/d'}
+                    date = {('list' in currentData) && (currentData.list[0].dt !== '') ? (ConvertDate(currentData.list[0].dt)) : 'n/d'}
+                    wind = {('list' in currentData) && ('speed' in currentData.list[0].wind) && (currentData.list[0].wind.speed !== '') ? (Math.round(currentData.list[0].wind.speed)) : 'n/d'}
+                    humidity = {('list' in currentData) && ('humidity' in currentData.list[0].main) && (currentData.list[0].main.humidity !== '') ? currentData.list[0].main.humidity : 'n/d'}
+                    pressure = {('list' in currentData) && ('pressure' in currentData.list[0].main) && (currentData.list[0].main.pressure !== '') ? (Math.round((currentData.list[0].main.pressure)/1.33322)) : 'n/d'}
+                    sunrise = {('city' in currentData) && ('sunrise' in currentData.city) && (currentData.city.sunrise !== '' || (currentData.city.timezone !== '')) ? (ConvertSunTime(currentData.city.sunrise, currentData.city.timezone)) : 'n/d'}
+                    sunset = {('city' in currentData) && ('sunset' in currentData.city) && (currentData.city.sunset !== '' || (currentData.city.timezone !== '')) ? (ConvertSunTime(currentData.city.sunset, currentData.city.timezone)) : 'n/d'}
 
                 />}
             
@@ -253,59 +250,26 @@ export const Data = () => {
 
             <div className={style.forecast}>
 
-                {currentForecast && showForecastForFiveDays && <WeatherDataForFiveDays
-
-                    iconId = {('list' in currentForecast) && ('weather' in currentForecast.list[7]) && ('icon' in currentForecast.list[7].weather[0]) && (currentForecast.list[7].weather[0].icon !== '') ? currentForecast.list[7].weather[0].icon : 'no_image'}
-                    actual_temp = {('list' in currentForecast) && ('main' in currentForecast.list[7]) && ('temp' in currentForecast.list[7].main) && (currentForecast.list[7].main.temp !== '') ? (ConvertTemp(currentForecast.list[7].main.temp)) : 'n'}
-                    weather_desc = {('list' in currentForecast) && ('weather' in currentForecast.list[7]) && ('description' in currentForecast.list[7].weather[0]) && (currentForecast.list[7].weather[0].description !== '') ? currentForecast.list[7].weather[0].description : 'n/d'}
-                    date = {('list' in currentForecast) && ('dt' in currentForecast.list[7]) && (currentForecast.list[7].dt !== '') ? (ConvertDate(currentForecast.list[7].dt)) : 'n/d'}
-
-                />}
+                {currentForecast && showForecastForFiveDays && Array(5).fill(true).map((_, i) => <WeatherDataForFiveDays 
                 
-                {currentForecast && showForecastForFiveDays && <WeatherDataForFiveDays
-
-                    iconId = {('list' in currentForecast) && ('weather' in currentForecast.list[15]) && ('icon' in currentForecast.list[15].weather[0]) && (currentForecast.list[15].weather[0].icon !== '') ? currentForecast.list[15].weather[0].icon : 'no_image'}
-                    actual_temp = {('list' in currentForecast) && ('main' in currentForecast.list[15]) && ('temp' in currentForecast.list[15].main) && (currentForecast.list[15].main.temp !== '') ? (ConvertTemp(currentForecast.list[15].main.temp)) : 'n'}
-                    weather_desc = {('list' in currentForecast) && ('weather' in currentForecast.list[15]) && ('description' in currentForecast.list[15].weather[0]) && (currentForecast.list[15].weather[0].description !== '') ? currentForecast.list[15].weather[0].description : 'n/d'}
-                    date = {('list' in currentForecast) && ('dt' in currentForecast.list[15]) && (currentForecast.list[15].dt !== '') ? (ConvertDate(currentForecast.list[15].dt)) : 'n/d'}
-
-                />}
-
-                {currentForecast && showForecastForFiveDays && <WeatherDataForFiveDays
-
-                    iconId = {('list' in currentForecast) && ('weather' in currentForecast.list[23]) && ('icon' in currentForecast.list[23].weather[0]) && (currentForecast.list[23].weather[0].icon !== '') ? currentForecast.list[23].weather[0].icon : 'no_image'}
-                    actual_temp = {('list' in currentForecast) && ('main' in currentForecast.list[23]) && ('temp' in currentForecast.list[23].main) && (currentForecast.list[23].main.temp !== '') ? (ConvertTemp(currentForecast.list[23].main.temp)) : 'n'}
-                    weather_desc = {('list' in currentForecast) && ('weather' in currentForecast.list[23]) && ('description' in currentForecast.list[23].weather[0]) && (currentForecast.list[23].weather[0].description !== '') ? currentForecast.list[23].weather[0].description : 'n/d'}
-                    date = {('list' in currentForecast) && ('dt' in currentForecast.list[23]) && (currentForecast.list[23].dt !== '') ? (ConvertDate(currentForecast.list[23].dt)) : 'n/d'}
-
-                />}
-
-                {currentForecast && showForecastForFiveDays && <WeatherDataForFiveDays
-
-                    iconId = {('list' in currentForecast) && ('weather' in currentForecast.list[31]) && ('icon' in currentForecast.list[31].weather[0]) && (currentForecast.list[31].weather[0].icon !== '') ? currentForecast.list[31].weather[0].icon : 'no_image'}
-                    actual_temp = {('list' in currentForecast) && ('main' in currentForecast.list[31]) && ('temp' in currentForecast.list[31].main) && (currentForecast.list[31].main.temp !== '') ? (ConvertTemp(currentForecast.list[31].main.temp)) : 'n'}
-                    weather_desc = {('list' in currentForecast) && ('weather' in currentForecast.list[31]) && ('description' in currentForecast.list[31].weather[0]) && (currentForecast.list[31].weather[0].description !== '') ? currentForecast.list[31].weather[0].description : 'n/d'}
-                    date = {('list' in currentForecast) && ('dt' in currentForecast.list[31]) && (currentForecast.list[31].dt !== '') ? (ConvertDate(currentForecast.list[31].dt)) : 'n/d'}
-
-                />}
-
-                {currentForecast && showForecastForFiveDays && <WeatherDataForFiveDays
-
-                    iconId = {('list' in currentForecast) && ('weather' in currentForecast.list[39]) && ('icon' in currentForecast.list[39].weather[0]) && (currentForecast.list[39].weather[0].icon !== '') ? currentForecast.list[39].weather[0].icon : 'no_image'}
-                    actual_temp = {('list' in currentForecast) && ('main' in currentForecast.list[39]) && ('temp' in currentForecast.list[39].main) && (currentForecast.list[5].main.temp !== '') ? (ConvertTemp(currentForecast.list[39].main.temp)) : 'n'}
-                    weather_desc = {('list' in currentForecast) && ('weather' in currentForecast.list[39]) && ('description' in currentForecast.list[39].weather[0]) && (currentForecast.list[5].weather[0].description !== '') ? currentForecast.list[39].weather[0].description : 'n/d'}
-                    date = {('list' in currentForecast) && ('dt' in currentForecast.list[39]) && (currentForecast.list[39].dt !== '') ? (ConvertDate(currentForecast.list[39].dt)) : 'n/d'}
-
-                />}
+                    key = {i}
+                    iconId = {(filtredForecast) && ('weather' in filtredForecast[i]) && ('icon' in filtredForecast[i].weather[0]) && (filtredForecast[i].weather[0].icon !== '') ? filtredForecast[i].weather[0].icon : 'no_image'}
+                    actual_temp = {(filtredForecast) && ('main' in filtredForecast[i]) && ('temp' in filtredForecast[i].main) && (filtredForecast[i].main.temp !== '') ? (ConvertTemp(filtredForecast[i].main.temp)) : 'n'}
+                    weather_desc = {(filtredForecast) && ('weather' in filtredForecast[i]) && ('description' in filtredForecast[i].weather[0]) && (filtredForecast[i].weather[0].description !== '') ? filtredForecast[i].weather[0].description : 'n/d'}
+                    date = {(filtredForecast) && ('dt' in filtredForecast[i]) && (filtredForecast[i].dt !== '') ? (ConvertDate(filtredForecast[i].dt)) : 'n/d'}
+                
+                />) }
 
             </div>
 
             {currentData && <Search
+
                 findWeatherByCityName = {GetWeatherByCity}
                 myLocation = {GetGeo}
                 btnStatus = {btnDisabled}
                 onChange = {AllowToSend}
                 onKeyUp = {KeyBoardListener}
+
             />}
             
             {showError && <Error errorMsg = {currentError} />}

@@ -2,7 +2,7 @@ import style from './styles.module.css'
 
 export const Switcher = (props) => {
 
-    const {forecastNow, forecastFiveDays} = props
+    const {forecastNow, forecastFiveDays, btn_now, btn_five} = props
 
     return (
 
@@ -12,9 +12,9 @@ export const Switcher = (props) => {
 
                 <div className={style.switcher_block_btns}>
 
-                    <button className={`${style.switcher_block_btns_item} ${style.switcher_block_btns_item__one} ${style.switcher_block_btns_item__active}`} onClick={forecastNow}>Now</button>
+                    <button className={`${btn_now}`} onClick={forecastNow}>Now</button>
                     
-                    <button className={`${style.switcher_block_btns_item} ${style.switcher_block_btns_item__five}`} onClick={forecastFiveDays}>5 Days </button>
+                    <button className={`${btn_five}`} onClick={forecastFiveDays}>5 Days </button>
 
                 </div>
 
