@@ -1,6 +1,6 @@
 import style from './styles.module.css'
-
 import { Icon } from "../Icon"
+
 
 export const WeatherDataForNow = (props) => {
 
@@ -30,8 +30,8 @@ export const WeatherDataForNow = (props) => {
 
                     <div className={style.weather_block_date_sun_type}> 
 
-                        
                         <Icon name={'sunset'} className={style.weather_block_date_sun_type_icon}/>{sunset}
+                        
                     </div>
 
                 </div>

@@ -1,6 +1,6 @@
 import style from './styles.module.css'
-
 import { Icon } from "../Icon"
+
 
 export const WeatherDataForFiveDays = (props) => {
 

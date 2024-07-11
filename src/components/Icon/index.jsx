@@ -28,129 +28,87 @@ export const Icon = (props) => {
     const {name, className, iconId} = props
 
     if (name === 'search') {
-
         return <IconSearch className={className} />
-
     }
 
     if (name === 'warning') {
-
         return <IconWarning className={className} />
-
     }
 
     if (name === 'geolocation') {
-
         return <IconGeolocation className={className} />
-
     }
 
     if (iconId === 'no_image') {
-
         return <IconNoImage className={className} />
-
     }
 
     if (name === 'wind') {
-
         return <IconWind className={className} />
-
     }
 
     if (name === 'humidity') {
-
         return <IconHumidity className={className} />
-
     }
 
     if (name === 'pressure') {
-
         return <IconPressure className={className} />
-
     }
 
     if (name === 'sunrise') {
-
         return <IconSunRise className={className} />
-
     }
 
     if (name === 'sunset') {
-
         return <IconSunSet className={className} />
-
     }
 
     if (iconId === '01d') {
-
         return <IconDayClearSky className={className} />
-
     }
 
     if (iconId === '01n') {
-
         return <IconNightClearSky className={className} />
-
     }
 
     if (iconId === '02d') {
-
         return <IconDayFewClouds className={className} />
-
     }
 
     if (iconId === '02n') {
-
         return <IconNightFewClouds className={className} />
-
     }
 
     if (iconId === '03d' || iconId === '03n') {
-
         return <IconScatteredClouds className={className} />
-
     }
 
     if (iconId === '04d' || iconId === '04n') {
-
         return <IconBrokenClouds className={className} />
-
     }
 
     if (iconId === '09d' || iconId === '09n') {
-
         return <IconShowerRain className={className} />
-
     }
 
     if (iconId === '10d') {
-
         return <IconDayRain className={className} />
-
     }
 
     if (iconId === '10n') {
-
         return <IconNightRain className={className} />
-
     }
 
     if (iconId === '11d' || iconId === '11n') {
-
         return <IconThunderstorm className={className} />
-
     }
 
     if (iconId === '13d' || iconId === '13n') {
-
         return <IconSnow className={className} />
-
     }
 
     if (iconId === '50d' || iconId === '50n') {
-
         return <IconMist className={className} />
-
     }
     
 }

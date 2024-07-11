@@ -1,6 +1,6 @@
 import style from './style.module.css'
-
 import { Data } from '../Data'
+
 
 function Wrapper() {
 

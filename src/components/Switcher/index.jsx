@@ -1,5 +1,6 @@
 import style from './styles.module.css'
 
+
 export const Switcher = (props) => {
 
     const {forecastNow, forecastFiveDays, btn_now, btn_five} = props

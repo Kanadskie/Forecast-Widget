@@ -1,10 +1,10 @@
 import style from './styles.module.css'
-
 import { Icon } from '../Icon'
+
 
 export const Search = (props) => {
 
-    const {findWeatherByCityName, myLocation, btnStatus, onChange, onKeyUp} = props
+    const {findWeatherByCityName, myLocation, btnStatus, onChange, onKeyUp, inputRef} = props
     
     return (
 
@@ -12,7 +12,7 @@ export const Search = (props) => {
 
             <div className={style.search_block}>
 
-                <input className={style.search_block_input} autoComplete='off' id='input' onChange={onChange} onKeyUp={onKeyUp} type='search' placeholder="Type city"></input>
+                <input className={style.search_block_input} autoComplete='off' onChange={onChange} onKeyUp={onKeyUp} type='search' placeholder="Type city" ref={inputRef}></input>
                 
                 <button className={`${style.btn} ${style.btn_search}`} title="You can make your request only if you have typed city name" disabled={btnStatus} id='btnSearch' onClick={findWeatherByCityName} type='submit'><Icon name={'search'} className={style.btn_icon} /></button>
             
