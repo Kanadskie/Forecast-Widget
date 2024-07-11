@@ -56,11 +56,11 @@ export const Data = () => {
     }, [currentCity, currentForecast])
 
 
-    async function fetchData(urls, storage) {
+    async function fetchData(url, storage) {
 
         try {
 
-            const response = await fetch(urls)
+            const response = await fetch(url)
             const data = await response.json()
             return storage(data)
 
