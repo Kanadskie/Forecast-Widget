@@ -34,11 +34,8 @@ export const Data = () => {
     useEffect(() => {
 
         let getUrl = (timeStampsNumber) => {
-
             let url = `https://api.openweathermap.org/data/2.5/forecast?lat=${currentCoords.latitude}&lon=${currentCoords.longitude}&appid=${key}&cnt=${timeStampsNumber}`
-            
             return url
-
         }
 
         fetchData(getUrl(1), setCurrentData)
@@ -50,7 +47,6 @@ export const Data = () => {
     useEffect(() => {
 
         fetchData(`http://api.openweathermap.org/geo/1.0/direct?q=${currentCity},&appid=${key}`, setCurrentCityData)
-
         getTimeStamps(currentForecast, setFiltredForecast, [7, 15, 23, 31, 39])
 
     }, [currentCity, currentForecast])
@@ -59,17 +55,13 @@ export const Data = () => {
     async function fetchData(url, storage) {
 
         try {
-
             const response = await fetch(url)
             const data = await response.json()
             return storage(data)
-
         } catch(e) {
-
             console.error(e)
             setShowError(true)
             setError(`Ooops..! Something went wrong. Possibly due to network failure. Please try again later...`)
-
         }
 
     }
@@ -103,37 +95,29 @@ export const Data = () => {
     const getWeatherByCity = () => {        
 
         if (!currentCityData.hasOwnProperty(0)) {
-
             setShowError(true)
             setError('You typed wrong name of the city, please correct it and try again...')
-
         } else {
-
             setShowError(false)
             setCurrentCoords(currentCoords = {latitude: currentCityData[0].lat, longitude: currentCityData[0].lon})
             setBtnDisabled(true)
             inputRef.current.value = ''
             setTypeOfSearch('')
-
         }
     }
         
     const handleNowClick = () => {
-
         setShowForecastForNow(true)
         setShowForecastForFiveDays(false)
         setNowBtnActive(true)
         setFiveBtnActive(false)
-
     }
 
     const handleFiveDaysClick = () => {
-
         setShowForecastForNow(false)
         setShowForecastForFiveDays(true)
         setNowBtnActive(false)
         setFiveBtnActive(true)
-
     }
 
     const allowToSend = (e) => {
@@ -142,13 +126,9 @@ export const Data = () => {
         setCurrentCity(e.target.value)
 
         if (e.target.value !== '') {
-
             setBtnDisabled(false)
-
         } else {
-
             setBtnDisabled(true)
-
         }
 
     }
